@@ -6,3 +6,20 @@ biblioteca_risco = {
     "Metano": {"densidade": 0.0006, "risco": "Explosivo - Bolsao de Gas"},
     "Enxofre": {"densidade": 2.0, "risco": "Moderado - Acidificacao da Agua"}
 }
+
+def analisar_seguranca_perfuracao(camadas_detectadas):
+    print("--- Iniciando Analise de Seguranca da Materia ---")
+    
+    perigo_encontrado = False
+    
+    for camada in camadas_detectadas:
+        material = camada['material']
+        if material in biblioteca_risco:
+            print(f"!!! ALERTA DE SEGURANCA: {material} detectado !!!")
+            print(f"MOTIVO: {biblioteca_risco[material]['risco']}")
+            perigo_encontrado = True
+            
+    if perigo_encontrado:
+        print("\n[OPERACAO CANCELADA] - Risco de contaminacao ou explosao detectado.")
+    else:
+        print("\n[OPERACAO SEGURA] - Nenhuma barreira perigosa identificada.")
