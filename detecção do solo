@@ -23,3 +23,13 @@ def analisar_seguranca_perfuracao(camadas_detectadas):
         print("\n[OPERACAO CANCELADA] - Risco de contaminacao ou explosao detectado.")
     else:
         print("\n[OPERACAO SEGURA] - Nenhuma barreira perigosa identificada.")
+
+# Simulando o que o sensor captou no solo de Três Passos
+camadas_teste = [
+    {'material': 'Areia'},
+    {'material': 'Arsenio'},  # O perigo está aqui!
+    {'material': 'Agua'}
+]
+
+# Chamando a função para testar
+analisar_seguranca_perfuracao(camadas_teste)
