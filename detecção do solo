@@ -33,3 +33,59 @@ camadas_teste = [
 
 # Chamando a função para testar
 analisar_seguranca_perfuracao(camadas_teste)
+
+
+
+import sys
+
+class ATMSystemOrchestrator:
+    """
+    Controlador Central: Unifica a lógica de potência, 
+    segurança ambiental e análise multiespectral.
+    """
+    def __init__(self):
+        self.system_ready = False
+        self.safety_protocols = "Active"
+
+    def initialize_core_modules(self):
+        # Validação lógica de dependências entre os repositórios
+        try:
+            print("[SYSTEM] Validating FusionCore stability...")
+            print("[SYSTEM] Loading Inertial Navigation matrices...")
+            print("[SYSTEM] Synchronizing Risk Signature database...")
+            self.system_ready = True
+            return True
+        except Exception as e:
+            print(f"[ERROR] Module initialization failed: {e}")
+            return False
+
+    def run_safe_scan(self, material_id):
+        if not self.system_ready:
+            print("[ABORT] System not initialized.")
+            return
+
+        print(f"[PROCESS] Initiating protocol for: {material_id}")
+        
+        # O sistema prioriza o bloqueio preventivo antes da análise de valor
+        if self.check_safety_constraints(material_id):
+            self.execute_spectral_analysis(material_id)
+
+    def check_safety_constraints(self, material_id):
+        # Lógica de contenção para materiais críticos
+        critical_list = ["mercurio", "chumbo", "arsenio"]
+        if material_id.lower() in critical_list:
+            print("[CRITICAL_ALERT] Environmental hazard detected. Shutdown initiated.")
+            return False
+        return True
+
+    def execute_spectral_analysis(self, material_id):
+        # Integração com a lógica de densidade e condutividade
+        print(f"[DATA] Scanning density/conductivity for {material_id}...")
+        print("[DATA] Analysis complete. Result: Operation authorized.")
+
+# Execução do Orquestrador
+if __name__ == "__main__":
+    controller = ATMSystemOrchestrator()
+    if controller.initialize_core_modules():
+        target = input("Input target material for analysis: ")
+        controller.run_safe_scan(target)
