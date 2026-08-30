@@ -1,0 +1,65 @@
+import sys
+from datetime import datetime
+
+# Biblioteca de Materiais Perigosos
+biblioteca_risco = {
+    "Mercurio": {"densidade": 13.5, "risco": "Extremo - Contaminacao Toxica"},
+    "Arsenio": {"densidade": 5.7, "risco": "Alto - Envenenamento de Lencol"},
+    "Chumbo": {"densidade": 11.3, "risco": "Alto - Metal Pesado"},
+    "Metano": {"densidade": 0.0006, "risco": "Explosivo - Bolsao de Gas"},
+    "Enxofre": {"densidade": 2.0, "risco": "Moderado - Acidificacao da Agua"}
+}
+
+class ATMSystemOrchestrator:
+    def __init__(self):
+        self.system_ready = False
+        self.safety_protocols = "Active"
+
+    def initialize_core_modules(self):
+        try:
+            print("[SYSTEM] Validating FusionCore stability...")
+            print("[SYSTEM] Loading Inertial Navigation matrices...")
+            print("[SYSTEM] Synchronizing Risk Signature database...")
+            self.system_ready = True
+            return True
+        except Exception as e:
+            print(f"[ERROR] Module initialization failed: {e}")
+            return False
+
+    def run_safe_scan(self, material_id):
+        if not self.system_ready:
+            print("[ABORT] System not initialized.")
+            return
+
+        print(f"[PROCESS] Initiating protocol for: {material_id}")
+        
+        if self.check_safety_constraints(material_id):
+            self.execute_spectral_analysis(material_id)
+        else:
+            self.salvar_log(material_id, "Bloqueado por risco ambiental")
+
+    def check_safety_constraints(self, material_id):
+        if material_id.capitalize() in biblioteca_risco:
+            risco = biblioteca_risco[material_id.capitalize()]["risco"]
+            print(f"[CRITICAL_ALERT] {material_id} detectado! Motivo: {risco}")
+            print("[SYSTEM] Shutdown initiated.")
+            return False
+        return True
+
+    def execute_spectral_analysis(self, material_id):
+        print(f"[DATA] Scanning density/conductivity for {material_id}...")
+        resultado = "[DATA] Analysis complete. Result: Operation authorized."
+        print(resultado)
+        self.salvar_log(material_id, resultado)
+
+    def salvar_log(self, material_id, resultado):
+        """Grava relatório em arquivo externo com data/hora"""
+        with open("log_orquestrador.txt", "a", encoding="utf-8") as f:
+            f.write(f"{datetime.now()} | Material: {material_id} | Resultado: {resultado}\n")
+
+# --- Execução ---
+if __name__ == "__main__":
+    controller = ATMSystemOrchestrator()
+    if controller.initialize_core_modules():
+        target = input("Input target material for analysis: ")
+        controller.run_safe_scan(target)
